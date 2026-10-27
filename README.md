@@ -22,7 +22,6 @@ Software version <b>0.12.0</b> · Manual edition <b>1.2</b> · 2026-10-27 · Eng
 
 | Edition | Date | Software | Changes |
 |---|---|---|---|
-| 1.0 | 2026-10-26 | 0.11.8 | First edition (Russian) |
 | 1.1 | 2026-10-27 | 0.11.10 | Unreachable Xiaomi region |
 | 1.2 | 2026-10-27 | 0.12.0 | Error log; first English edition |
 
