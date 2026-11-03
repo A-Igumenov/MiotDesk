@@ -1,9 +1,11 @@
+<p align="center"><b>English</b> · <a href="README.lt.md">Lietuvių</a></p>
+
 <p align="center"><img src="images/04-main.png" width="820" alt="MiotDesk main window"></p>
 
 <h1 align="center">MiotDesk — User Manual</h1>
 
 <p align="center">Unofficial Xiaomi Mi Home client for Windows, macOS, Linux and Android<br>
-Software version <b>0.12.0</b> · Manual edition <b>1.2</b> · 2026-10-27 · English</p>
+Software version <b>0.16.0</b> · Manual edition <b>2.2</b> · 2026-11-02 · English</p>
 
 > [!CAUTION]
 > MiotDesk is **not affiliated with Xiaomi**. Read [section 2](#safety) “Safety and limitations” before you start.
@@ -11,19 +13,35 @@ Software version <b>0.12.0</b> · Manual edition <b>1.2</b> · 2026-10-27 · Eng
 | Document | |
 |---|---|
 | Title | MiotDesk. User Manual |
-| Product | MiotDesk 0.12.0 for Windows 10/11, macOS, Linux (Debian / Ubuntu / Mint) and Android |
-| Edition / date | 1.2 / 2026-10-27 |
+| Product | MiotDesk 0.16.0 for Windows 10/11, macOS, Linux (Debian / Ubuntu / Mint) and Android |
+| Edition / date | 2.2 / 2026-11-02 |
 | Author | Aleksandr Igumenov |
 | Audience | Mi Home users without special technical training |
 | Structure | Prepared following ISO/IEC/IEEE 26514 (information for users of software) and IEC/IEEE 82079-1 (preparation of information for use) |
+| Other language | [Lietuvių](README.lt.md) |
 | License | MIT — see [LICENSE](LICENSE) |
 
 **Revision history**
 
 | Edition | Date | Software | Changes |
 |---|---|---|---|
+| 1.0 | 2026-10-26 | 0.11.8 | First edition (Russian) |
 | 1.1 | 2026-10-27 | 0.11.10 | Unreachable Xiaomi region |
 | 1.2 | 2026-10-27 | 0.12.0 | Error log; first English edition |
+| 1.3 | 2026-10-27 | 0.12.1 | Gateway sensors in portions; gateway hang log |
+| 1.4 | 2026-10-29 | 0.12.2 | Vacuum debug; troubleshooting |
+| 1.5 | 2026-10-29 | 0.12.3 | New software version; instructions unchanged |
+| 1.6 | 2026-10-29 | 0.12.4 | Live robot vacuum map; troubleshooting |
+| 1.7 | 2026-10-30 | 0.12.4 | Lithuanian edition; links between languages |
+| 1.8 | 2026-10-31 | 0.12.5 | Always-plugged-in devices; “Energy” tiles; gateway sensors from cloud reports |
+| 1.9 | 2026-11-01 | 0.12.6 | Gateway sensors with several copies; end of history charts |
+| 1.10 | 2026-11-01 | 0.12.7 | New software version; instructions unchanged |
+| 1.11 | 2026-11-02 | 0.12.8 | Gateway devices that do not answer |
+| 1.12 | 2026-11-02 | 0.12.9 | New software version; instructions unchanged |
+| 1.13 | 2026-11-02 | 0.12.10 | New software version; instructions unchanged |
+| 2.0 | 2026-11-02 | 0.15.0 | Windows desktop gadget |
+| 2.1 | 2026-11-02 | 0.16.0 | macOS and Android widgets; widget appearance, order and names; key names on multi-key switch cards; Linux kiosk mode; Raspberry Pi |
+| 2.2 | 2026-11-02 | 0.16.0 | Übersicht: installing, widget position and size |
 
 ## Contents
 
@@ -45,10 +63,11 @@ Software version <b>0.12.0</b> · Manual edition <b>1.2</b> · 2026-10-27 · Eng
 - [5. Installation, update and removal](#install)
    - [5.1 Windows](#inst-win)
    - [5.2 Linux (Debian, Ubuntu, Mint)](#inst-linux)
-   - [5.3 macOS](#inst-mac)
-   - [5.4 Android](#inst-android)
-   - [5.5 Update](#update)
-   - [5.6 Removal](#uninstall)
+   - [5.3 Raspberry Pi](#inst-rpi)
+   - [5.4 macOS](#inst-mac)
+   - [5.5 Android](#inst-android)
+   - [5.6 Update](#update)
+   - [5.7 Removal](#uninstall)
 - [6. Signing in to the Xiaomi account](#login)
    - [6.1 Sign-in procedure](#login-proc)
    - [6.2 Sign-in confirmation (two-step verification)](#login-2fa)
@@ -66,6 +85,7 @@ Software version <b>0.12.0</b> · Manual edition <b>1.2</b> · 2026-10-27 · Eng
    - [8.4 Sensors and notification limits](#dev-sensor)
    - [8.5 History charts](#dev-chart)
    - [8.6 Robot vacuum](#dev-vacuum)
+   - [8.7 Vacuum debug](#dev-vacdebug)
 - [9. Favorites, groups and card order](#fav)
    - [9.1 Adding to favorites](#fav-add)
    - [9.2 Groups](#groups)
@@ -94,8 +114,9 @@ Software version <b>0.12.0</b> · Manual edition <b>1.2</b> · 2026-10-27 · Eng
    - [13.3 Notifications](#set-notify)
    - [13.4 Connection](#set-conn)
    - [13.5 Error log](#set-errlog)
-   - [13.6 Tags](#set-tags)
-   - [13.7 Backup](#set-backup)
+   - [13.6 Desktop widgets](#set-gadget)
+   - [13.7 Tags](#set-tags)
+   - [13.8 Backup](#set-backup)
 - [14. Several copies of MiotDesk](#sync)
    - [14.1 How synchronization works](#sync-how)
    - [14.2 Shared settings](#sync-shared)
@@ -109,10 +130,12 @@ Software version <b>0.12.0</b> · Manual edition <b>1.2</b> · 2026-10-27 · Eng
 <a id="about"></a>
 ## 1. About this manual
 
+<sub><a href="README.lt.md#about">Lietuviškai</a></sub>
+
 <a id="purpose"></a>
 ### 1.1 Purpose
 
-This manual describes how to install, set up and use **MiotDesk 0.12.0** — an unofficial Xiaomi Mi Home smart-home client for computers and phones. It covers the whole user journey: from the first sign-in to the Xiaomi account to tracking electricity consumption and working with tags, including deleting them.
+This manual describes how to install, set up and use **MiotDesk 0.16.0** — an unofficial Xiaomi Mi Home smart-home client for computers and phones. It covers the whole user journey: from the first sign-in to the Xiaomi account to tracking electricity consumption and working with tags, including deleting them.
 
 The manual applies to the stated version only. Some elements may look different in other versions.
 
@@ -168,6 +191,8 @@ Safety notes and important remarks are marked like this (by importance):
 <a id="safety"></a>
 ## 2. Safety and limitations
 
+<sub><a href="README.lt.md#safety">Lietuviškai</a></sub>
+
 <a id="status"></a>
 ### 2.1 Status of the program
 
@@ -205,6 +230,8 @@ The program has built-in protection:
 <a id="product"></a>
 ## 3. Product description
 
+<sub><a href="README.lt.md#product">Lietuviškai</a></sub>
+
 <a id="features"></a>
 ### 3.1 Main features
 
@@ -230,10 +257,13 @@ At start-up the last saved state (not older than 7 days) is shown immediately an
 <a id="requirements"></a>
 ## 4. System requirements
 
+<sub><a href="README.lt.md#requirements">Lietuviškai</a></sub>
+
 | Platform | Supported versions |
 |---|---|
 | Windows | Windows 10 or 11, 64-bit (x64) |
 | Linux | Debian 12–13, Ubuntu 22.04 or later, Linux Mint 21 or later (x86-64) |
+| Raspberry Pi | Raspberry Pi 3, 4, 5, 400, Zero 2 W, Zero W; Raspberry Pi OS Bookworm or later (arm64 or armhf) |
 | macOS | macOS 10.15 or later, Apple Silicon or Intel |
 | Android | Android 7.0 or later (tested on Android 12+) |
 
@@ -245,31 +275,68 @@ You also need:
 <a id="install"></a>
 ## 5. Installation, update and removal
 
+<sub><a href="README.lt.md#install">Lietuviškai</a></sub>
+
 <a id="inst-win"></a>
 ### 5.1 Windows
 
 **Installer**
 
-1. Run `MiotDesk_0.12.0_x64-setup.exe`. Administrator rights are not required.
+1. Run `MiotDesk_0.16.0_x64-setup.exe`. Administrator rights are not required.
 2. If Windows SmartScreen appears, click **More info**, then **Run anyway**.
 3. Follow the installer. *A MiotDesk shortcut appears in the Start menu.*
 
 **Portable version**
 
-1. Unpack `MiotDesk_0.12.0_portable_x64.zip` to any folder.
+1. Unpack `MiotDesk_0.16.0_portable_x64.zip` to any folder.
 2. Run `miotdesk.exe`. The files `miotdesk.exe` and `WebView2Loader.dll` must be in the same folder.
 
 <a id="inst-linux"></a>
 ### 5.2 Linux (Debian, Ubuntu, Mint)
 
-1. Right-click `MiotDesk_0.12.0_linux_amd64.run` and choose **Run as a program**.
+1. Right-click `MiotDesk_0.16.0_linux_amd64.run` and choose **Run as a program**.
 2. Enter the administrator password. *The program is installed.*
 3. Start MiotDesk from the menu: **Accessories (Utilities)** → **MiotDesk**.
 
-The `MiotDesk_0.12.0_amd64.deb` package can also be installed with a double click.
+The `MiotDesk_0.16.0_amd64.deb` package can also be installed with a double click.
+
+#### Kiosk mode (wall screen, tablet)
+
+In kiosk mode MiotDesk fills the whole screen without a window frame, and the window cannot be closed — handy for a wall-mounted home control panel. Both packages (`.run` and `.deb`) add the menu item **MiotDesk (kiosk)**; from a terminal — `miotdesk --kiosk`.
+
+1. After installing, the `.run` installer asks whether to start MiotDesk in kiosk mode automatically when you log in. Answer **Yes** to turn it on or **No** to turn it off. *The question shows the current state; run the installer again to change the answer.*
+2. If the program was installed from the `.deb` package, turn on the kiosk-mode autostart with `cp /usr/share/applications/miotdesk-kiosk.desktop ~/.config/autostart/` (to turn it off, delete that file from `~/.config/autostart`).
+3. To leave kiosk mode (a normal framed window), press Ctrl+Alt+K. Quit the program from the tray icon menu.
+
+If MiotDesk is already running, starting **MiotDesk (kiosk)** switches the open window to kiosk mode. In kiosk mode the settings (**Notifications** block) show how to leave it. To keep the screen on, turn off screen dimming and locking in the system settings.
+
+<a id="inst-rpi"></a>
+### 5.3 Raspberry Pi
+
+Ready `.deb` packages are available for the Raspberry Pi (Raspberry Pi OS Bookworm or newer with a desktop is required). Choose the package by the system type (check it with `dpkg --print-architecture`):
+
+- `MiotDesk_0.16.0_arm64.deb` — 64-bit Raspberry Pi OS: Raspberry Pi 3, 4, 5, 400, Zero 2 W;
+- `MiotDesk_0.16.0_armhf.deb` — 32-bit Raspberry Pi OS: all models, Zero W included.
+
+1. Copy the package to the Raspberry Pi.
+2. Double-click it or run `sudo apt install ./MiotDesk_0.16.0_arm64.deb` (or `_armhf.deb`) in a terminal. *Missing system libraries are installed automatically.*
+3. Start MiotDesk from the menu: **Accessories** → **MiotDesk** or **MiotDesk (kiosk)**.
+
+> [!IMPORTANT]
+> The Raspberry Pi Zero W (first generation, 512 MB) and Zero 2 W run MiotDesk slowly: the window may take up to a minute to open. A 64-bit system is recommended for the Zero 2 W. A Raspberry Pi 4 or 5 is the most comfortable choice.
+
+#### Setting up a Raspberry Pi as a wall panel
+
+1. Turn on automatic login: `sudo raspi-config` → **System Options** → **Boot / Auto Login** → **Desktop Autologin**.
+2. Turn off screen blanking: `sudo raspi-config` → **Display Options** → **Screen Blanking** → **No**.
+3. Turn on the MiotDesk autostart in kiosk mode: run `mkdir -p ~/.config/autostart && cp /usr/share/applications/miotdesk-kiosk.desktop ~/.config/autostart/` ([section 5.2](#inst-linux)).
+4. If needed, rotate the screen: menu → **Preferences** → **Screen Configuration**. For a touch screen without a keyboard install an on-screen keyboard: `sudo apt install squeekboard`.
+5. Restart the Raspberry Pi: `sudo reboot`. *After start-up MiotDesk opens full screen.*
+
+Leave kiosk mode with Ctrl+Alt+K; to turn the autostart off, delete `~/.config/autostart/miotdesk-kiosk.desktop`.
 
 <a id="inst-mac"></a>
-### 5.3 macOS
+### 5.4 macOS
 
 1. Start MiotDesk from the **Applications** folder.
 2. If macOS does not allow the program to open: **System Settings → Privacy & Security → Open Anyway**.
@@ -277,14 +344,14 @@ The `MiotDesk_0.12.0_amd64.deb` package can also be installed with a double clic
 4. If macOS asks for Keychain access, choose **Always Allow**.
 
 <a id="inst-android"></a>
-### 5.4 Android
+### 5.5 Android
 
-1. Open `MiotDesk_0.12.0_android.apk` on the phone.
+1. Open `MiotDesk_0.16.0_android.apk` on the phone.
 2. If Android asks, allow installing apps from this source.
 3. Tap **Install**, then **Open**.
 
 <a id="update"></a>
-### 5.5 Update
+### 5.6 Update
 
 Install the new version over the old one in the same way as the first installation. Settings and the sign-in are kept.
 
@@ -292,7 +359,7 @@ Install the new version over the old one in the same way as the first installati
 > If you use several copies of MiotDesk (computers and a phone), update all of them to the same version: copies of different versions do not synchronize ([section 14](#sync)).
 
 <a id="uninstall"></a>
-### 5.6 Removal
+### 5.7 Removal
 
 - **Windows:** Settings → Apps → MiotDesk → Uninstall (for the portable version just delete its folder).
 - **Linux:** run the `.run` file again and choose **Remove completely** (removes the program, settings, cache and the stored session).
@@ -300,10 +367,12 @@ Install the new version over the old one in the same way as the first installati
 - **Android:** uninstall the app in the usual way.
 
 > [!TIP]
-> Before removing the program or moving to another device, save a backup of the settings ([section 13.7](#set-backup)).
+> Before removing the program or moving to another device, save a backup of the settings ([section 13.8](#set-backup)).
 
 <a id="login"></a>
 ## 6. Signing in to the Xiaomi account
+
+<sub><a href="README.lt.md#login">Lietuviškai</a></sub>
 
 <a id="login-proc"></a>
 ### 6.1 Sign-in procedure
@@ -311,7 +380,7 @@ Install the new version over the old one in the same way as the first installati
 On the first start the sign-in window opens ([Figure 1](#fig-02-login-filled)).
 
 <a id="fig-02-login-filled"></a>
-<p align="center"><img src="images/02-login-filled.png" width="420" alt="Sign-in window with filled fields"><br><em>Figure 1. Sign-in window with filled fields</em></p>
+<p align="center"><img src="images/02-login-filled.png" width="420" alt="Sign-in window with filled fields"><br><em>Figure 1 Sign-in window with filled fields</em></p>
 
 | No. | Element |
 |---|---|
@@ -334,7 +403,7 @@ On the first start the sign-in window opens ([Figure 1](#fig-02-login-filled)).
 When you sign in from a new device, Xiaomi may ask for confirmation ([Figure 2](#fig-03-login-2fa)).
 
 <a id="fig-03-login-2fa"></a>
-<p align="center"><img src="images/03-login-2fa.png" width="420" alt="Confirmation code request"><br><em>Figure 2. Confirmation code request</em></p>
+<p align="center"><img src="images/03-login-2fa.png" width="420" alt="Confirmation code request"><br><em>Figure 2 Confirmation code request</em></p>
 
 1. Click **Send code by email** or **Send code by SMS**. *The message “Code sent” appears.*
 2. Type the received code into the **Verification code** field.
@@ -358,13 +427,15 @@ Open **Settings → Account** and click **Sign out**. Session tokens and the loc
 <a id="main"></a>
 ## 7. Main window
 
+<sub><a href="README.lt.md#main">Lietuviškai</a></sub>
+
 <a id="main-overview"></a>
 ### 7.1 Overview of the main window
 
 After sign-in the main window with the device list opens ([Figure 3](#fig-04-main)).
 
 <a id="fig-04-main"></a>
-<p align="center"><img src="images/04-main.png" width="820" alt="Main window, “All devices”"><br><em>Figure 3. Main window, “All devices”</em></p>
+<p align="center"><img src="images/04-main.png" width="820" alt="Main window, “All devices”"><br><em>Figure 3 Main window, “All devices”</em></p>
 
 | No. | Element |
 |---|---|
@@ -384,12 +455,12 @@ The refresh timer shows the time until the next state request; during a refresh 
 ### 7.2 Device card
 
 <a id="fig-05-card"></a>
-<p align="center"><img src="images/05-card.png" width="260" alt="Device card"><br><em>Figure 4. Device card</em></p>
+<p align="center"><img src="images/05-card.png" width="260" alt="Device card"><br><em>Figure 4 Device card</em></p>
 
 A card ([Figure 4](#fig-05-card)) shows:
 
 - the device icon (top left) — automatic or chosen by you;
-- the power button ⏻ (top right): dark — on, light — off. Multi-key switches show numbered key buttons instead;
+- the power button ⏻ (top right): dark — on, light — off. Multi-key switches show numbered key buttons instead, with the key name under each button (your own, from Mi Home or “Key N”; a long name is shortened, the full name is in the tooltip);
 - the name, a short state (for example “70% · 4000 K”) and the location “Home · Room”;
 - the connection path icon bottom right: Wi-Fi — local network, cloud — through the Xiaomi cloud;
 - colored dots above the power button — assigned tags ([section 10](#tags)); on sensors — the battery level.
@@ -400,7 +471,7 @@ An unreachable device is shown as a dimmed, inactive card. Clicking the card (an
 ### 7.3 Phone layout
 
 <a id="fig-39-mobile"></a>
-<p align="center"><img src="images/39-mobile.png" width="300" alt="Main screen on a phone"><br><em>Figure 5. Main screen on a phone</em></p>
+<p align="center"><img src="images/39-mobile.png" width="300" alt="Main screen on a phone"><br><em>Figure 5 Main screen on a phone</em></p>
 
 On a phone ([Figure 5](#fig-39-mobile)) the sidebar opens with the ☰ button in the top left corner, and the device window takes the whole screen. All other elements and actions are the same as on a computer.
 
@@ -412,13 +483,15 @@ When you close the window on a computer, the program does not quit but hides to 
 <a id="device"></a>
 ## 8. Device window
 
+<sub><a href="README.lt.md#device">Lietuviškai</a></sub>
+
 <a id="dev-head"></a>
 ### 8.1 Device window header
 
 Click a card — the device window opens on the right. Its header ([Figure 6](#fig-37-panel-head)) contains:
 
 <a id="fig-37-panel-head"></a>
-<p align="center"><img src="images/37-panel-head.png" width="460" alt="Device window header"><br><em>Figure 6. Device window header</em></p>
+<p align="center"><img src="images/37-panel-head.png" width="460" alt="Device window header"><br><em>Figure 6 Device window header</em></p>
 
 | No. | Element |
 |---|---|
@@ -434,7 +507,7 @@ Below the name: device type, connection state (“online”) and path (“local 
 ### 8.2 Controlling a device
 
 <a id="fig-06-panel-light"></a>
-<p align="center"><img src="images/06-panel-light.png" width="330" alt="Light window"><br><em>Figure 7. Light window</em></p>
+<p align="center"><img src="images/06-panel-light.png" width="330" alt="Light window"><br><em>Figure 7 Light window</em></p>
 
 The device window is built automatically from the official description of the model (MIoT specification). Example for a light — [Figure 7](#fig-06-panel-light):
 
@@ -451,7 +524,7 @@ Changes are sent immediately. Values you have just set are protected from “bou
 ### 8.3 Quick timer
 
 <a id="fig-07-panel-timer"></a>
-<p align="center"><img src="images/07-panel-timer.png" width="460" alt="The “Timer” block"><br><em>Figure 8. The “Timer” block</em></p>
+<p align="center"><img src="images/07-panel-timer.png" width="460" alt="The “Timer” block"><br><em>Figure 8 The “Timer” block</em></p>
 
 Devices with a power button have a **Timer** block ([Figure 8](#fig-07-panel-timer)): click **15 min**, **30 min**, **1 h** or **2 h**. A device that is on will be switched off, a device that is off — switched on after the chosen time. The time of execution is shown in the block and the timer can be cancelled. All timers are also listed under **Schedules** ([section 12.1](#schedules)).
 
@@ -459,7 +532,7 @@ Devices with a power button have a **Timer** block ([Figure 8](#fig-07-panel-tim
 ### 8.4 Sensors and notification limits
 
 <a id="fig-08-panel-sensor"></a>
-<p align="center"><img src="images/08-panel-sensor.png" width="330" alt="Temperature and humidity sensor window"><br><em>Figure 9. Temperature and humidity sensor window</em></p>
+<p align="center"><img src="images/08-panel-sensor.png" width="330" alt="Temperature and humidity sensor window"><br><em>Figure 9 Temperature and humidity sensor window</em></p>
 
 A sensor window ([Figure 9](#fig-08-panel-sensor)) shows the current readings, the battery level and history charts. In the **Notification limits** block you can set **min** and / or **max** values for temperature, humidity, CO₂ and PM2.5. When a value crosses a limit you get a notification such as “Temperature 27.4 °C — above 26 °C”. It is repeated only after the value has returned to normal. An empty field means no limit.
 
@@ -469,11 +542,12 @@ A sensor window ([Figure 9](#fig-08-panel-sensor)) shows the current readings, t
 The bottom of a sensor window shows a 24-hour chart. The enlarge button in its top right corner opens the chart in a separate window ([Figure 10](#fig-09-chart-window)).
 
 <a id="fig-09-chart-window"></a>
-<p align="center"><img src="images/09-chart-window.png" width="820" alt="History chart window"><br><em>Figure 10. History chart window</em></p>
+<p align="center"><img src="images/09-chart-window.png" width="820" alt="History chart window"><br><em>Figure 10 History chart window</em></p>
 
 - Period: **24 h**, **7 d**, **30 d**.
 - Mouse wheel — zoom, drag — move, double click — reset zoom; resize the window by its bottom right corner.
 - The value at a point is shown when you hover over it.
+- The last point of the chart is the current value: the Xiaomi cloud records history with a delay.
 - **CSV** — save the data to a file for Excel (in the Downloads folder).
 - Close the window with ✕ or the Esc key.
 
@@ -481,7 +555,7 @@ The bottom of a sensor window shows a 24-hour chart. The enlarge button in its t
 ### 8.6 Robot vacuum
 
 <a id="fig-38-vacuum"></a>
-<p align="center"><img src="images/38-vacuum.png" width="330" alt="Robot vacuum window"><br><em>Figure 11. Robot vacuum window</em></p>
+<p align="center"><img src="images/38-vacuum.png" width="330" alt="Robot vacuum window"><br><em>Figure 11 Robot vacuum window</em></p>
 
 For robot vacuums ([Figure 11](#fig-38-vacuum)) the top buttons are **Start cleaning**, **Stop**, **Return to dock**. The **Map** block shows the state (for example “On the dock · charging 100%”), the robot position and the rooms. Map modes:
 
@@ -491,17 +565,36 @@ For robot vacuums ([Figure 11](#fig-38-vacuum)) the top buttons are **Start clea
 
 “Zone” and “Go to point” are available for Roborock and Dreame robots (including Xiaomi robots made by Dreame). Cleaning parameters (suction power and others) are below.
 
+During cleaning the map is refreshed every 20 seconds. For Dreame robots (including Xiaomi robots made by Dreame, such as X20+) the robot position, the dock and the cleaning path come from the data the robot sends to the cloud while cleaning.
+
+<a id="dev-vacdebug"></a>
+### 8.7 Vacuum debug
+
+If during cleaning the map still shows the robot in the wrong place (for example, at the dock), there is a collapsible **Vacuum debug** block below the map ([Figure 12](#fig-39-vacdebug)). It collects a report for the developer: the map properties, their Xiaomi cloud history for the last 3 hours and the robot and dock positions on the current map.
+
+1. Start cleaning and open the vacuum window.
+2. Expand **Vacuum debug** and click **Collect** or **Collect + request map**. *The second option also asks the vacuum to upload its current map (as Mi Home does when the map is opened) and checks again after 6 seconds. Collecting takes up to a minute.*
+3. Click **Copy** or **Save to file** and send the report to the developer.
+
+<a id="fig-39-vacdebug"></a>
+<p align="center"><img src="images/39-vacdebug.png" width="330" alt="“Vacuum debug” block with a report"><br><em>Figure 12 “Vacuum debug” block with a report</em></p>
+
+> [!NOTE]
+> The report contains no map keys (only their length) and no full user or device IDs. It is never sent anywhere automatically.
+
 <a id="fav"></a>
 ## 9. Favorites, groups and card order
+
+<sub><a href="README.lt.md#fav">Lietuviškai</a></sub>
 
 <a id="fav-add"></a>
 ### 9.1 Adding to favorites
 
 1. Open the device window.
-2. Click the star ☆ next to the name ([Figure 12](#fig-10-star)). *The star becomes filled; the device appears in Favorites and in the tray menu.*
+2. Click the star ☆ next to the name ([Figure 13](#fig-10-star)). *The star becomes filled; the device appears in Favorites and in the tray menu.*
 
 <a id="fig-10-star"></a>
-<p align="center"><img src="images/10-star.png" width="420" alt="“Add to favorites” button"><br><em>Figure 12. “Add to favorites” button</em></p>
+<p align="center"><img src="images/10-star.png" width="420" alt="“Add to favorites” button"><br><em>Figure 13 “Add to favorites” button</em></p>
 
 Clicking again removes the device from favorites.
 
@@ -509,11 +602,11 @@ Clicking again removes the device from favorites.
 ### 9.2 Groups
 
 <a id="fig-11-favorites"></a>
-<p align="center"><img src="images/11-favorites.png" width="820" alt="Favorites"><br><em>Figure 13. Favorites</em></p>
+<p align="center"><img src="images/11-favorites.png" width="820" alt="Favorites"><br><em>Figure 14 Favorites</em></p>
 
 A group switches several devices with one button (for example “All lamps”). If at least one device of the group is on, the button switches all of them off.
 
-1. Open **Favorites** ([Figure 13](#fig-11-favorites)) and click **+ New group**.
+1. Open **Favorites** ([Figure 14](#fig-11-favorites)) and click **+ New group**.
 2. Enter the **Group name** and tick the **Devices in the group**.
 3. Click **Save**.
 
@@ -523,39 +616,41 @@ A group can be changed (**Edit**) or deleted (**Delete** → confirm). The group
 ### 9.3 Changing the card order
 
 1. Open the list (a room, “All devices” or “Favorites”).
-2. Click **Arrange** on the toolbar. *Arrows ◀ ▶ appear on the cards ([Figure 14](#fig-12-order)).*
+2. Click **Arrange** on the toolbar. *Arrows ◀ ▶ appear on the cards ([Figure 15](#fig-12-order)).*
 3. Move the cards with the arrows or drag them with the mouse.
 4. Click **Done**.
 
 <a id="fig-12-order"></a>
-<p align="center"><img src="images/12-order.png" width="820" alt="Arrange mode"><br><em>Figure 14. Arrange mode</em></p>
+<p align="center"><img src="images/12-order.png" width="820" alt="Arrange mode"><br><em>Figure 15 Arrange mode</em></p>
 
 The order is saved separately for each room; new devices are added at the end. The original order is restored with **Reset card order** in **Settings** (block “Card order and hidden devices”), which also lists hidden devices.
 
 <a id="tags"></a>
 ## 10. Tags
 
+<sub><a href="README.lt.md#tags">Lietuviškai</a></sub>
+
 Tags are your own colored labels for devices (for example “Lights”, “Living room — evening”). A device can have several tags. Tags are shown as colored dots on the cards and let you filter the list.
 
 <a id="tag-create"></a>
 ### 10.1 Creating a tag
 
-1. Open the window of any device and find the **Tags** block ([Figure 15](#fig-13-tags-empty)).
+1. Open the window of any device and find the **Tags** block ([Figure 16](#fig-13-tags-empty)).
 2. Type a name into **New tag…** (1).
 3. Choose one of the eight colors (2) (the selected color is circled).
-4. Click **Add**. *The tag is created and immediately assigned to this device ([Figure 17](#fig-15-tags-assigned)).*
+4. Click **Add**. *The tag is created and immediately assigned to this device ([Figure 18](#fig-15-tags-assigned)).*
 
 <a id="fig-13-tags-empty"></a>
-<p align="center"><img src="images/13-tags-empty.png" width="420" alt="The “Tags” block — no tags yet"><br><em>Figure 15. The “Tags” block — no tags yet</em></p>
+<p align="center"><img src="images/13-tags-empty.png" width="420" alt="The “Tags” block — no tags yet"><br><em>Figure 16 The “Tags” block — no tags yet</em></p>
 
 <a id="fig-14-tags-new"></a>
-<p align="center"><img src="images/14-tags-new.png" width="420" alt="Typing a name and choosing a color"><br><em>Figure 16. Typing a name and choosing a color</em></p>
+<p align="center"><img src="images/14-tags-new.png" width="420" alt="Typing a name and choosing a color"><br><em>Figure 17 Typing a name and choosing a color</em></p>
 
 <a id="tag-assign"></a>
 ### 10.2 Assigning and removing a tag
 
 <a id="fig-15-tags-assigned"></a>
-<p align="center"><img src="images/15-tags-assigned.png" width="460" alt="Tags assigned to the device"><br><em>Figure 17. Tags assigned to the device</em></p>
+<p align="center"><img src="images/15-tags-assigned.png" width="460" alt="Tags assigned to the device"><br><em>Figure 18 Tags assigned to the device</em></p>
 
 Existing tags are shown in the **Tags** block as buttons. An assigned tag has an outline.
 
@@ -563,23 +658,23 @@ Existing tags are shown in the **Tags** block as buttons. An assigned tag has an
 2. Click the tag button. *An unassigned tag is assigned, an assigned one is removed.*
 
 <a id="fig-16-tag-dots"></a>
-<p align="center"><img src="images/16-tag-dots.png" width="260" alt="Tag dots on a card"><br><em>Figure 18. Tag dots on a card</em></p>
+<p align="center"><img src="images/16-tag-dots.png" width="260" alt="Tag dots on a card"><br><em>Figure 19 Tag dots on a card</em></p>
 
-Assigned tags appear on the device card as colored dots ([Figure 18](#fig-16-tag-dots)).
+Assigned tags appear on the device card as colored dots ([Figure 19](#fig-16-tag-dots)).
 
 <a id="tag-filter"></a>
 ### 10.3 Filtering by tag
 
-When at least one tag exists, a filter row appears above the device list ([Figure 19](#fig-17-tag-filter)).
+When at least one tag exists, a filter row appears above the device list ([Figure 20](#fig-17-tag-filter)).
 
 <a id="fig-17-tag-filter"></a>
-<p align="center"><img src="images/17-tag-filter.png" width="360" alt="Tag filter row"><br><em>Figure 19. Tag filter row</em></p>
+<p align="center"><img src="images/17-tag-filter.png" width="360" alt="Tag filter row"><br><em>Figure 20 Tag filter row</em></p>
 
-1. Click a tag. *Only devices with this tag stay in the list ([Figure 20](#fig-18-tag-filtered)).*
+1. Click a tag. *Only devices with this tag stay in the list ([Figure 21](#fig-18-tag-filtered)).*
 2. To remove the filter, click **All** or click the selected tag again.
 
 <a id="fig-18-tag-filtered"></a>
-<p align="center"><img src="images/18-tag-filtered.png" width="820" alt="List filtered by the “Lights” tag"><br><em>Figure 20. List filtered by the “Lights” tag</em></p>
+<p align="center"><img src="images/18-tag-filtered.png" width="820" alt="List filtered by the “Lights” tag"><br><em>Figure 21 List filtered by the “Lights” tag</em></p>
 
 The ✎ button at the end of the filter row opens tag management ([section 10.4](#tag-edit)).
 
@@ -590,12 +685,12 @@ Tag management opens in any of three ways:
 
 - the **Edit tags** button in the “Tags” block of a device window;
 - the ✎ button in the filter row;
-- **Settings → Tags** ([section 13.6](#set-tags)).
+- **Settings → Tags** ([section 13.7](#set-tags)).
 
 <a id="fig-19-tags-manage"></a>
-<p align="center"><img src="images/19-tags-manage.png" width="620" alt="Tag management"><br><em>Figure 21. Tag management</em></p>
+<p align="center"><img src="images/19-tags-manage.png" width="620" alt="Tag management"><br><em>Figure 22 Tag management</em></p>
 
-The list ([Figure 21](#fig-19-tags-manage)) shows each tag's name, number of devices and color.
+The list ([Figure 22](#fig-19-tags-manage)) shows each tag's name, number of devices and color.
 
 1. To rename a tag, edit the text in its name field.
 2. To change the color, click another color circle in the tag's row.
@@ -610,17 +705,19 @@ A new tag can also be created here — in the bottom row (**New tag…** → col
 > A deleted tag is removed from all devices. Deletion cannot be undone — the tag would have to be created and assigned again.
 
 1. Open tag management ([section 10.4](#tag-edit)).
-2. Click ✕ in the tag's row. *A confirmation button with the number of devices appears instead of the cross, for example “Delete (removed from 1 devices)” ([Figure 22](#fig-19b-tags-delete)).*
+2. Click ✕ in the tag's row. *A confirmation button with the number of devices appears instead of the cross, for example “Delete (removed from 1 devices)” ([Figure 23](#fig-19b-tags-delete)).*
 3. Click the confirmation button. *The tag is deleted and removed from all devices.* If you changed your mind, do not click it and click **Done**.
 
 <a id="fig-19b-tags-delete"></a>
-<p align="center"><img src="images/19b-tags-delete.png" width="620" alt="Confirming tag deletion"><br><em>Figure 22. Confirming tag deletion</em></p>
+<p align="center"><img src="images/19b-tags-delete.png" width="620" alt="Confirming tag deletion"><br><em>Figure 23 Confirming tag deletion</em></p>
 
 > [!NOTE]
 > To remove a tag from one device only, do not delete it — click its button in the device window ([section 10.2](#tag-assign)).
 
 <a id="energy"></a>
 ## 11. Electricity consumption
+
+<sub><a href="README.lt.md#energy">Lietuviškai</a></sub>
 
 MiotDesk shows electricity consumption in two ways:
 
@@ -631,17 +728,17 @@ MiotDesk shows electricity consumption in two ways:
 ### 11.1 Devices with a meter
 
 <a id="fig-20-energy-plug"></a>
-<p align="center"><img src="images/20-energy-plug.png" width="360" alt="The “Energy consumption” block of a plug"><br><em>Figure 23. The “Energy consumption” block of a plug</em></p>
+<p align="center"><img src="images/20-energy-plug.png" width="360" alt="The “Energy consumption” block of a plug"><br><em>Figure 24 The “Energy consumption” block of a plug</em></p>
 
-The window of such a device has an **Energy consumption** block ([Figure 23](#fig-20-energy-plug)): **Power now**, consumption **Today** and **This month**, a chart by **Days (31)** or **Months (12)** and the **Total for the period**.
+The window of such a device has an **Energy consumption** block ([Figure 24](#fig-20-energy-plug)): **Power now**, consumption **Today** and **This month**, a chart by **Days (31)** or **Months (12)** and the **Total for the period**.
 
 <a id="energy-page"></a>
 ### 11.2 The “Energy” section
 
-The **Energy** section in the sidebar ([Figure 24](#fig-21-energy-summary)) sums up all devices that report consumption to Mi Home:
+The **Energy** section in the sidebar ([Figure 25](#fig-21-energy-summary)) sums up all devices that report consumption to Mi Home:
 
 <a id="fig-21-energy-summary"></a>
-<p align="center"><img src="images/21-energy-summary.png" width="820" alt="The “Energy” section"><br><em>Figure 24. The “Energy” section</em></p>
+<p align="center"><img src="images/21-energy-summary.png" width="820" alt="The “Energy” section"><br><em>Figure 25 The “Energy” section</em></p>
 
 - tiles **Today**, **7 days**, **This month**, **Last month**;
 - the chart **All devices per day (30 days)**;
@@ -662,34 +759,36 @@ For devices that do not measure electricity themselves you can enter the power o
 For example, a 10 W lamp switched on for 1 hour uses 10 Wh. The operating time comes from the Mi Home state history.
 
 1. Open the **Energy** section.
-2. In the **Add a device without a meter** block open **Choose a device…** and select the device ([Figure 25](#fig-25-est-add)). *The device window opens.* You can also open the device window from the device list.
-3. Find the **Power draw (for the approximate consumption)** block ([Figure 26](#fig-22-est-empty)).
+2. In the **Add a device without a meter** block open **Choose a device…** and select the device ([Figure 26](#fig-25-est-add)). *The device window opens.* You can also open the device window from the device list.
+3. Find the **Power draw (for the approximate consumption)** block ([Figure 27](#fig-22-est-empty)).
 4. In **Power when on** enter the power of what the device switches, in watts (from the lamp marking or the manual). For a multi-channel switch the power is entered for each channel.
-5. Check the result. *Below the field a calculation appears, for example “Approximately: today 1.029 kWh, this month 1.029 kWh” ([Figure 27](#fig-23-est-filled)).*
+5. Check the result. *Below the field a calculation appears, for example “Approximately: today 1.029 kWh, this month 1.029 kWh” ([Figure 28](#fig-23-est-filled)).*
 
 <a id="fig-25-est-add"></a>
-<p align="center"><img src="images/25-est-add.png" width="560" alt="The “Add a device without a meter” block"><br><em>Figure 25. The “Add a device without a meter” block</em></p>
+<p align="center"><img src="images/25-est-add.png" width="560" alt="The “Add a device without a meter” block"><br><em>Figure 26 The “Add a device without a meter” block</em></p>
 
 <a id="fig-22-est-empty"></a>
-<p align="center"><img src="images/22-est-empty.png" width="400" alt="Power not entered yet"><br><em>Figure 26. Power not entered yet</em></p>
+<p align="center"><img src="images/22-est-empty.png" width="400" alt="Power not entered yet"><br><em>Figure 27 Power not entered yet</em></p>
 
 <a id="fig-23-est-filled"></a>
-<p align="center"><img src="images/23-est-filled.png" width="400" alt="Power entered — calculation shown"><br><em>Figure 27. Power entered — calculation shown</em></p>
+<p align="center"><img src="images/23-est-filled.png" width="400" alt="Power entered — calculation shown"><br><em>Figure 28 Power entered — calculation shown</em></p>
 
 To exclude a device from the calculation, clear the power field.
 
 **Robot vacuum dock.** For a dock, three values from the manual are entered: **While charging**, **At rest** (robot charged or cleaning) and optionally **Dock washing / drying**. The time in each mode comes from the robot's state history.
 
+**Devices that are always plugged in.** Gateways, repeaters, IR remotes, routers, cameras and other mains-powered devices also use electricity. Their window has an **Always (plugged in)** field, W (for switches — **Standby (the device itself)**); consumption is counted 24 hours a day. The power can be estimated as V × A, but the current on the power adapter is its maximum — the real draw is usually 2–5 times lower (a gateway or IR remote ≈ 1–2 W, a router ≈ 5–12 W). Battery-powered sensors do not have this field.
+
 <a id="est-result"></a>
 ### 11.4 How approximate consumption is shown
 
 <a id="fig-24-energy-summary-est"></a>
-<p align="center"><img src="images/24-energy-summary-est.png" width="820" alt="“Energy” with a device without a meter"><br><em>Figure 28. “Energy” with a device without a meter</em></p>
+<p align="center"><img src="images/24-energy-summary-est.png" width="820" alt="“Energy” with a device without a meter"><br><em>Figure 29 “Energy” with a device without a meter</em></p>
 
-After entering the power, the device is counted in **Energy** ([Figure 28](#fig-24-energy-summary-est)):
+After entering the power, the device is counted in **Energy** ([Figure 29](#fig-24-energy-summary-est)):
 
 - in the table by device it is marked **≈ approx.**;
-- the “This month” tile shows the approximate share: “of which approx. …”;
+- every tile shows a separate line “measured … · approx. …” under the total; the total includes both;
 - in the chart the approximate part is a **hatched** top on the solid (measured) bar of the same width; the legend below the chart reads “measured” and “approx.”;
 - approximate consumption is included in the totals and the cost.
 
@@ -704,13 +803,15 @@ If today's state history is not yet available, today's consumption is calculated
 <a id="sections"></a>
 ## 12. Other sections
 
+<sub><a href="README.lt.md#sections">Lietuviškai</a></sub>
+
 <a id="schedules"></a>
 ### 12.1 Schedules and timers
 
 <a id="fig-26-schedules"></a>
-<p align="center"><img src="images/26-schedules.png" width="820" alt="“Schedules and timers”"><br><em>Figure 29. “Schedules and timers”</em></p>
+<p align="center"><img src="images/26-schedules.png" width="820" alt="“Schedules and timers”"><br><em>Figure 30 “Schedules and timers”</em></p>
 
-This section ([Figure 29](#fig-26-schedules)) switches devices and groups on and off or runs scenes on time.
+This section ([Figure 30](#fig-26-schedules)) switches devices and groups on and off or runs scenes on time.
 
 1. In the **New** block choose a device, group or scene in **What**.
 2. Choose the **Action**: **turn on** or **turn off**.
@@ -727,41 +828,43 @@ For sunrise and sunset, enter the coordinates (latitude, longitude) once; they a
 ### 12.2 Consumables
 
 <a id="fig-27-consumables"></a>
-<p align="center"><img src="images/27-consumables.png" width="820" alt="“Consumables”"><br><em>Figure 30. “Consumables”</em></p>
+<p align="center"><img src="images/27-consumables.png" width="820" alt="“Consumables”"><br><em>Figure 31 “Consumables”</em></p>
 
-This section ([Figure 30](#fig-27-consumables)) shows the remaining life of filters, brushes, mops and the battery level of all devices. Bar color: green — fine, yellow — replace soon, red — replace now. **Reset** resets the counter after a part has been replaced. Filters at the top right: **All**, **Replace**, **Batteries**, **Filters, brushes…**.
+This section ([Figure 31](#fig-27-consumables)) shows the remaining life of filters, brushes, mops and the battery level of all devices. Bar color: green — fine, yellow — replace soon, red — replace now. **Reset** resets the counter after a part has been replaced. Filters at the top right: **All**, **Replace**, **Batteries**, **Filters, brushes…**.
 
 <a id="scenes"></a>
 ### 12.3 Scenes and automations
 
 <a id="fig-28-scenes"></a>
-<p align="center"><img src="images/28-scenes.png" width="820" alt="“Scenes”"><br><em>Figure 31. “Scenes”</em></p>
+<p align="center"><img src="images/28-scenes.png" width="820" alt="“Scenes”"><br><em>Figure 32 “Scenes”</em></p>
 
-In this section ([Figure 31](#fig-28-scenes)) manual Mi Home scenes are started with **Run**. Automations can be switched on and off; the new state is re-checked in the Xiaomi cloud. Automations are created and edited only in Mi Home.
+In this section ([Figure 32](#fig-28-scenes)) manual Mi Home scenes are started with **Run**. Automations can be switched on and off; the new state is re-checked in the Xiaomi cloud. Automations are created and edited only in Mi Home.
 
 <a id="overview"></a>
 ### 12.4 Home overview
 
 <a id="fig-29-overview"></a>
-<p align="center"><img src="images/29-overview.png" width="820" alt="“Home overview”"><br><em>Figure 32. “Home overview”</em></p>
+<p align="center"><img src="images/29-overview.png" width="820" alt="“Home overview”"><br><em>Figure 33 “Home overview”</em></p>
 
-This section ([Figure 32](#fig-29-overview)) shows a summary: open doors and windows, devices that are on, offline devices and average sensor readings per room. PM2.5 above 35 and CO₂ above 1200 are highlighted.
+This section ([Figure 33](#fig-29-overview)) shows a summary: open doors and windows, devices that are on, offline devices and average sensor readings per room. PM2.5 above 35 and CO₂ above 1200 are highlighted.
 
 <a id="connectivity"></a>
 ### 12.5 Connectivity
 
 <a id="fig-30-connectivity"></a>
-<p align="center"><img src="images/30-connectivity.png" width="820" alt="“Connectivity”"><br><em>Figure 33. “Connectivity”</em></p>
+<p align="center"><img src="images/30-connectivity.png" width="820" alt="“Connectivity”"><br><em>Figure 34 “Connectivity”</em></p>
 
-This section ([Figure 33](#fig-30-connectivity)) shows the connection path of each device: **Local network**, **Cloud only**, **Via gateway**, as well as the IP address, Wi-Fi signal and offline devices. The table can be sorted and saved with **CSV**.
+This section ([Figure 34](#fig-30-connectivity)) shows the connection path of each device: **Local network**, **Cloud only**, **Via gateway**, as well as the IP address, Wi-Fi signal and offline devices. The table can be sorted and saved with **CSV**.
 
 <a id="settings"></a>
 ## 13. Settings
 
-The **Settings** section ([Figure 34](#fig-31-settings)) contains: Language, Accent color, Accessibility, Layout, Notifications, Connection, Error log, Tags, Card order and hidden devices, Backup, Account, About.
+<sub><a href="README.lt.md#settings">Lietuviškai</a></sub>
+
+The **Settings** section ([Figure 35](#fig-31-settings)) contains: Language, Accent color, Accessibility, Layout, Notifications, Connection, Error log, Desktop widget (Windows, macOS and Android), Tags, Card order and hidden devices, Backup, Account, About.
 
 <a id="fig-31-settings"></a>
-<p align="center"><img src="images/31-settings.png" width="820" alt="“Settings”, top part"><br><em>Figure 34. “Settings”, top part</em></p>
+<p align="center"><img src="images/31-settings.png" width="820" alt="“Settings”, top part"><br><em>Figure 35 “Settings”, top part</em></p>
 
 <a id="set-look"></a>
 ### 13.1 Language, color and accessibility
@@ -774,7 +877,7 @@ The **Settings** section ([Figure 34](#fig-31-settings)) contains: Language, Acc
 ### 13.2 Layout
 
 <a id="fig-36-set-layout"></a>
-<p align="center"><img src="images/36-set-layout.png" width="560" alt="The “Layout” block"><br><em>Figure 35. The “Layout” block</em></p>
+<p align="center"><img src="images/36-set-layout.png" width="560" alt="The “Layout” block"><br><em>Figure 36 The “Layout” block</em></p>
 
 - **Default tile size**: Small, Medium, Large. The size of a single tile is changed in the device window by clicking its icon.
 - **Side panel**: Full, Icons, Hidden.
@@ -785,7 +888,7 @@ The **Settings** section ([Figure 34](#fig-31-settings)) contains: Language, Acc
 ### 13.3 Notifications
 
 <a id="fig-32-set-notify"></a>
-<p align="center"><img src="images/32-set-notify.png" width="560" alt="The “Notifications” block"><br><em>Figure 36. The “Notifications” block</em></p>
+<p align="center"><img src="images/32-set-notify.png" width="560" alt="The “Notifications” block"><br><em>Figure 37 The “Notifications” block</em></p>
 
 Turn on **System notifications** and check them with **Test notification**. Notifications are evaluated after every state refresh, without extra requests; each event is shown once until the state changes. Notification types (battery, consumables, leak, smoke and gas, open doors, robot errors, device offline, internet down, temperature and air quality limits) are switched on individually.
 
@@ -793,7 +896,7 @@ Turn on **System notifications** and check them with **Test notification**. Noti
 ### 13.4 Connection
 
 <a id="fig-33-set-connection"></a>
-<p align="center"><img src="images/33-set-connection.png" width="560" alt="The “Connection” block"><br><em>Figure 37. The “Connection” block</em></p>
+<p align="center"><img src="images/33-set-connection.png" width="560" alt="The “Connection” block"><br><em>Figure 38 The “Connection” block</em></p>
 
 | Parameter | Description |
 |---|---|
@@ -801,7 +904,8 @@ Turn on **System notifications** and check them with **Test notification**. Noti
 | **Show devices from all Xiaomi regions** | Combine devices of all regions. The number of devices found in each region is shown below |
 | **Status update interval** | 65 s (recommended), 2, 5, 10 min or your own value, minimum 30 s |
 | **Motion, light, door, smoke and leak sensors — every 15 s (one request)** | Fast refresh of these sensors with one request |
-| Request statistics | Cloud requests per minute, since start, time to the next refresh, copy synchronization state ([section 14](#sync)), unreachable Xiaomi regions |
+| **Gateway sensors: one small portion every** | 15 s (default), 30 s, 1 or 2 min. Gateway (Zigbee/BLE) sensors are requested separately from Wi-Fi devices, 1–4 at a time in turn, so the gateway never gets a burst of requests. If it answers slowly (…036), the portion is reduced and a pause is made automatically. If a single device does not answer (flat battery, too far from the gateway) while the others do, only that device is skipped for 10 minutes — the gateway pace is kept. If it does not answer even with 1 device per request, the sensors are read from their reports in the Xiaomi cloud (no requests to the gateway); the gateway is re-checked every 5 minutes and after 2 good checks the sensors are read directly again |
+| Request statistics | Cloud requests per minute, since start, time to the next refresh, copy synchronization state ([section 14](#sync)), unreachable Xiaomi regions; per gateway — sensor requests per hour, portion size, pause and last good answer (or “not working since …”) |
 | **Search all regions again** | Search devices again, for example after a device moved to another region |
 | **Scan local network** | Search Wi-Fi devices in the local network |
 
@@ -811,14 +915,14 @@ Turn on **System notifications** and check them with **Test notification**. Noti
 The **Error log** block collects problems noticed by the program on this device: failed actions, unreachable Xiaomi servers, copy synchronization failures, schedules that did not run, and so on. The log makes no extra requests to Xiaomi and is stored only on this device.
 
 <a id="fig-41-errlog-badge"></a>
-<p align="center"><img src="images/41-errlog-badge.png" width="260" alt="Number of new errors next to “Settings”"><br><em>Figure 38. Number of new errors next to “Settings”</em></p>
+<p align="center"><img src="images/41-errlog-badge.png" width="260" alt="Number of new errors next to “Settings”"><br><em>Figure 39 Number of new errors next to “Settings”</em></p>
 
-When new errors or warnings appear, their number is shown next to **Settings** in the sidebar ([Figure 38](#fig-41-errlog-badge)). It disappears after you open the log.
+When new errors or warnings appear, their number is shown next to **Settings** in the sidebar ([Figure 39](#fig-41-errlog-badge)). It disappears after you open the log.
 
 <a id="fig-40-errlog"></a>
-<p align="center"><img src="images/40-errlog.png" width="560" alt="The “Error log” block (first entry expanded)"><br><em>Figure 39. The “Error log” block (first entry expanded)</em></p>
+<p align="center"><img src="images/40-errlog.png" width="560" alt="The “Error log” block (first entry expanded)"><br><em>Figure 40 The “Error log” block (first entry expanded)</em></p>
 
-Each log entry ([Figure 39](#fig-40-errlog)) contains:
+Each log entry ([Figure 40](#fig-40-errlog)) contains:
 
 - a colored level dot: 🔴 error, 🟠 warning, 🔵 information;
 - the problem name, the time it last occurred, the group and the device (if the problem concerns a device);
@@ -845,7 +949,7 @@ Information messages (for example “No reply over LAN — using the cloud”) a
 | Xiaomi cloud | No connection to the Xiaomi cloud; Xiaomi region unreachable; Xiaomi server error; request too long (414) |
 | Xiaomi limits | Too many requests — Xiaomi paused access |
 | Devices | Device offline; device rejected the command |
-| Gateways | No reply through the gateway (…036); gateway offline / not responding |
+| Gateways | No reply through the gateway (…036); gateway answers slowly — load reduced; gateway offline / not responding (with cause and load before it); gateway works again (offline from … to …); gateway does not answer — sensors read from cloud reports |
 | Local network | No reply over LAN — using the cloud; local network search failed; router local interface error |
 | Copy sync | Main copy is an older version; different versions; too few common devices; cannot connect; main copy unreachable; shared settings are read-only |
 | Schedules and scenes | Schedule action failed; schedule skipped (program was not running); scene did not start; automation was not switched |
@@ -856,19 +960,139 @@ Information messages (for example “No reply over LAN — using the cloud”) a
 
 Failures of actions you started yourself (buttons, sliders, scenes, sign-in) are marked as **errors**; recurring background refresh problems — as **warnings**. If this copy receives data through the main copy ([section 14](#sync)), the main copy's cloud errors are visible in its log too.
 
+<a id="set-gadget"></a>
+### 13.6 Desktop widgets
+
+Chosen devices can be watched and switched without opening the MiotDesk window:
+
+- **Windows** — a desktop gadget for 8GadgetPack;
+- **macOS** — readings in the menu bar (next to the clock) and a desktop widget for Übersicht;
+- **Android** — a home screen widget on the phone.
+
+On every system the widget works the same way: no network service is used and the data come from the states MiotDesk already has — there are no extra requests to Xiaomi. Each device shows its name and a short state (as on the card): sensor readings, “On” or “Off”, keys with their names for a multi-key switch. The settings block is named after the system: **Windows desktop gadget**, **macOS desktop widget** or **Home screen widget**; Linux has no such block.
+
+Common steps on all systems:
+
+1. Open **Settings** and turn on **Write data for the gadget**.
+2. Tick the devices to show (search helps with long lists). *The number of chosen devices is shown above the list.*
+
+#### Order, names and appearance
+
+The chosen devices are listed above the search — in the order they appear on the widget ([Figure 41](#fig-48-gadget-style)).
+
+- The ↑ and ↓ buttons move a device up or down, ✕ removes it from the widget.
+- The name field takes a shorter name used on the widget only; the name in Mi Home and in MiotDesk stays the same. An empty field means the usual name.
+
+In the **Appearance** part you can set:
+
+- **Theme** — dark or light;
+- **Background opacity** — 100, 85, 70 or 50 % (macOS and Android; on Windows the gadget background is always solid — 8GadgetPack draws a transparent background with artifacts);
+- **Accent color** — the color of the dot and keys of devices that are on;
+- **Compact** — name and value on one line;
+- **Show the title** — the “MiotDesk” line at the top;
+- **Line spacing** — tight, normal or loose.
+
+Below is a **preview** of how the widget will look (it updates at once and every 5 seconds). Changes reach the widget within 10 seconds (on Android — with the next refresh, at most a minute).
+
+<a id="fig-48-gadget-style"></a>
+<p align="center"><img src="images/48-gadget-style.png" width="560" alt="Order, names, appearance and preview"><br><em>Figure 41 Order, names, appearance and preview</em></p>
+
+<a id="fig-49-gadget-styled"></a>
+<p align="center"><img src="images/49-gadget-styled.png" width="420" alt="The gadget with the light theme, compact and a blue accent"><br><em>Figure 42 The gadget with the light theme, compact and a blue accent</em></p>
+
+#### Windows: 8GadgetPack gadget
+
+<a id="fig-42-gadget-win"></a>
+<p align="center"><img src="images/42-gadget-win.png" width="560" alt="The “Windows desktop gadget” block"><br><em>Figure 43 The “Windows desktop gadget” block</em></p>
+
+1. Install 8GadgetPack from gadgetpack.net if it is not installed yet.
+2. In the block ([Figure 43](#fig-42-gadget-win)) click **Save the gadget (MiotDesk.gadget)**. *The file is saved to the Downloads folder.*
+3. Double-click the saved file and confirm the installation. *The gadget appears on the desktop ([Figure 44](#fig-45-gadget-desktop)).*
+
+<a id="fig-45-gadget-desktop"></a>
+<p align="center"><img src="images/45-gadget-desktop.png" width="420" alt="The MiotDesk gadget on the Windows desktop"><br><em>Figure 44 The MiotDesk gadget on the Windows desktop</em></p>
+
+The gadget refreshes every 10 seconds and works while MiotDesk is running (also minimized to the tray). When the program is closed, the gadget shows “MiotDesk is not running” or “no fresh data”.
+
+#### macOS: menu bar and Übersicht widget
+
+<a id="fig-43-gadget-mac"></a>
+<p align="center"><img src="images/43-gadget-mac.png" width="560" alt="The “macOS desktop widget” block"><br><em>Figure 45 The “macOS desktop widget” block</em></p>
+
+In the block ([Figure 45](#fig-43-gadget-mac)) the **Show in the menu bar** switch is on by default. The readings of the first two chosen devices are shown next to the MiotDesk icon in the menu bar ([Figure 46](#fig-46-gadget-macos), top).
+
+1. Click the MiotDesk icon in the menu bar. *The chosen devices with their states are listed at the top of the menu.*
+2. Click a switch in the list to turn it on or off: ● — on, ○ — off. *Each key of a multi-key switch is a separate line with its name.*
+3. A click on a sensor or on the name of a multi-key switch opens the MiotDesk window.
+
+The desktop widget runs in the free Übersicht program (macOS 12 or later; on Apple silicon Macs — M1, M2, M3 and later — it runs without Rosetta). Install it in one of these ways:
+
+- **From the website:** open tracesof.net/uebersicht, click **Download**, unpack the downloaded `Uebersicht-….app.zip` and move **Übersicht.app** to the **Applications** folder.
+- **With Homebrew** (if installed): run `brew install --cask ubersicht` in Terminal.
+
+On the first start macOS may refuse to open the program: **System Settings → Privacy & Security → Open Anyway**. Once started, the Übersicht icon appears in the menu bar; to keep the widget after a restart, turn on **Launch Übersicht when I login** in the icon menu. The program updates itself.
+
+1. Start Übersicht at least once — this creates its widgets folder.
+2. In the block click **Install the Übersicht widget (MiotDesk.jsx)**. *The file is written straight into the Übersicht widgets folder; in a few seconds the widget appears in the top right corner of the desktop.*
+3. If Übersicht is not found, the file is saved to the Downloads folder: choose **Open Widgets Folder** in the Übersicht menu and move the file there.
+
+<a id="fig-46-gadget-macos"></a>
+<p align="center"><img src="images/46-gadget-macos.png" width="660" alt="The menu bar and the Übersicht widget on macOS (example)"><br><em>Figure 46 The menu bar and the Übersicht widget on macOS (example)</em></p>
+
+The widget refreshes every 10 seconds; a click on it opens MiotDesk. When the program is closed, the widget shows “MiotDesk is not running” or “no fresh data”.
+
+**Widget position and size.** Colors, opacity, order and names are set in MiotDesk ([section 13.6](#set-gadget)). The position on the screen, the width and the font size can be changed in the widget file itself:
+
+1. In the Übersicht icon menu choose **Open Widgets Folder**.
+2. Right-click `MiotDesk.jsx` → **Open With** → **TextEdit**.
+3. Change the values at the top of the file (see the table) and save (⌘+S). *Übersicht redraws the widget at once.*
+
+| Line in the file | What it changes |
+|---|---|
+| `top: 40px;` | Distance from the top edge. To stick the widget to the bottom edge, replace it with `bottom: 40px;` |
+| `right: 24px;` | Distance from the right edge. For the left edge — `left: 24px;` |
+| `width: 230px;` | Widget width |
+| `font-size: 12px;` | Font size |
+| `border-radius: 12px;` | Corner rounding (0 — square corners) |
+| `refreshFrequency = 10000` | How often the widget re-reads the data, in milliseconds (10000 = 10 s) |
+
+> [!NOTE]
+> The “Install the Übersicht widget” button writes the file again and undoes your edits — repeat them afterwards. If the widget disappears after an edit, a semicolon or quote was probably deleted: restore the original file with that button.
+
+#### Android: home screen widget
+
+<a id="fig-44-gadget-android"></a>
+<p align="center"><img src="images/44-gadget-android.png" width="320" alt="The “Home screen widget” block on the phone"><br><em>Figure 47 The “Home screen widget” block on the phone</em></p>
+
+1. In MiotDesk turn on **Write data for the gadget** and tick the devices ([Figure 47](#fig-44-gadget-android)).
+2. Press **Add the widget to the home screen** and confirm in the window that opens. *Or add it by hand: touch and hold an empty spot on the home screen, choose **Widgets** → **MiotDesk** and drag the widget to the screen. The widget can be resized.*
+3. Tap a switch on the widget to turn it on or off. *A single switch is shown as a toggle; a multi-key switch has round key buttons with the number and the key name under each.*
+4. A tap on a device name or on the title opens MiotDesk.
+
+<a id="fig-47-gadget-android-widget"></a>
+<p align="center"><img src="images/47-gadget-android-widget.png" width="320" alt="The MiotDesk widget on the home screen (example)"><br><em>Figure 48 The MiotDesk widget on the home screen (example)</em></p>
+
+MiotDesk refreshes the widget every minute and right after a tap on the widget; the time of the last refresh is shown in the widget title. When there are no data for more than 3 minutes, the widget shows “no fresh data”. To keep the widget refreshed while MiotDesk is in the background, turn on **Home server (run in background)** in the **Notifications** block ([section 13.3](#set-notify)). When the program is closed, a tap on a switch opens MiotDesk and the switch is toggled once the device list is loaded (if no more than 2 minutes have passed since the tap).
+
+> [!TIP]
+> Xiaomi (MIUI / HyperOS): if no window opens after pressing the button, open **Settings → Apps → MiotDesk → Other permissions**, allow **Home screen shortcuts** and press the button again. By hand: hold an empty spot on the screen → **Widgets** → find **MiotDesk** in the list of apps.
+
+> [!IMPORTANT]
+> The home screen widget is available in the Android version 0.16.0 and later: after updating, install the new 0.16.0 APK ([section 5](#install)). An older version has no such block in the settings.
+
 <a id="set-tags"></a>
-### 13.6 Tags
+### 13.7 Tags
 
 <a id="fig-35-set-tags"></a>
-<p align="center"><img src="images/35-set-tags.png" width="560" alt="The “Tags” block in Settings"><br><em>Figure 40. The “Tags” block in Settings</em></p>
+<p align="center"><img src="images/35-set-tags.png" width="560" alt="The “Tags” block in Settings"><br><em>Figure 49 The “Tags” block in Settings</em></p>
 
-This block ([Figure 40](#fig-35-set-tags)) works like tag management ([section 10.4](#tag-edit) and [section 10.5](#tag-delete)): rename, recolor, delete with ✕ and confirmation, and create a new tag.
+This block ([Figure 49](#fig-35-set-tags)) works like tag management ([section 10.4](#tag-edit) and [section 10.5](#tag-delete)): rename, recolor, delete with ✕ and confirmation, and create a new tag.
 
 <a id="set-backup"></a>
-### 13.7 Backup
+### 13.8 Backup
 
 <a id="fig-34-set-backup"></a>
-<p align="center"><img src="images/34-set-backup.png" width="560" alt="The “Backup” block"><br><em>Figure 41. The “Backup” block</em></p>
+<p align="center"><img src="images/34-set-backup.png" width="560" alt="The “Backup” block"><br><em>Figure 50 The “Backup” block</em></p>
 
 **Save to file** writes all MiotDesk settings (favorites, groups, tags, names, icons, notifications, price, schedules, power values, part records) and logs into one JSON file in the Downloads folder. The Xiaomi password and session are not included.
 
@@ -878,12 +1102,16 @@ This block ([Figure 40](#fig-35-set-tags)) works like tag management ([section 1
 <a id="sync"></a>
 ## 14. Several copies of MiotDesk
 
+<sub><a href="README.lt.md#sync">Lietuviškai</a></sub>
+
 <a id="sync-how"></a>
 ### 14.1 How synchronization works
 
 If MiotDesk with the same account runs on several devices (computers, phone) in one local network, the copies find each other automatically. One of them becomes the **main copy** and talks to Xiaomi; the others get data through it over the local network, encrypted. The load on the Xiaomi account does not grow. No setup or pairing of copies is needed.
 
 The Android copy becomes the main one if it is open on the screen or **Home server** mode is on; otherwise the copy started first. A secondary copy shows “Data comes through MiotDesk on “…” over the local network” and a **Take over** button that makes the current copy the main one.
+
+The main copy refreshes gateway sensors in the background too (including Android with the screen off) while other copies use it. If the main copy has no fresh gateway data for 3 minutes, a copy reads the sensors itself until the main copy is back.
 
 <a id="sync-shared"></a>
 ### 14.2 Shared settings
@@ -906,6 +1134,8 @@ The **Sync between copies** line in the “Connection” block shows: “through
 <a id="data"></a>
 ## 15. Data storage
 
+<sub><a href="README.lt.md#data">Lietuviškai</a></sub>
+
 | Data | Where it is stored |
 |---|---|
 | Xiaomi session tokens | Windows — Credential Manager; macOS — Keychain; Linux — Secret Service (keyutils); Android — the app's encrypted storage (key in Android Keystore) |
@@ -914,15 +1144,18 @@ The **Sync between copies** line in the “Connection” block shows: “through
 | Device model descriptions (specifications) | Program cache folder |
 | CSV files, backups and saved error logs | Downloads folder; existing files are not overwritten |
 
-Complete removal of the program ([section 5.6](#uninstall)) deletes all of the above except the files in the Downloads folder.
+Complete removal of the program ([section 5.7](#uninstall)) deletes all of the above except the files in the Downloads folder.
 
 <a id="trouble"></a>
 ## 16. Troubleshooting
+
+<sub><a href="README.lt.md#trouble">Lietuviškai</a></sub>
 
 | Symptom | Possible cause | What to do |
 |---|---|---|
 | All devices “offline”, devices that are on shown as off | No state received from the cloud (network failure, paused requests) | Wait for the next refresh or press ⟳. Check the toolbar timer: “⏸” means a pause requested by Xiaomi — wait until the time shown |
 | Message about too frequent requests | Allowed request rate exceeded | Do nothing: requests resume automatically after at least 15 minutes. Increase the refresh interval |
+| During cleaning the robot stays at the dock on the map, the cleaning path is not updated | The Xiaomi cloud holds the map saved before cleaning; the robot sends no data while cleaning, or the model is not supported | Wait 20 seconds or press ⟳. If that does not help, collect a report in **Vacuum debug** ([section 8.7](#dev-vacdebug)) during cleaning and send it to the developer |
 | Statistics: “Region … unreachable” | The Xiaomi server of this region cannot be reached from your network (blocked by the provider or down) | Nothing to do: devices of this region show their last state, other regions refresh as usual, retry every 5 minutes. If the message stays for long, check these devices in Mi Home on the same connection |
 | A device reacts slowly | Control through the cloud instead of the local network | Turn on **Prefer local network**; on macOS allow local network access; click **Scan local network** |
 | No notifications | Notifications are off in the program or in the system | Turn on **System notifications** and click **Test notification**; check the OS notification settings |
@@ -930,7 +1163,7 @@ Complete removal of the program ([section 5.6](#uninstall)) deletes all of the a
 | Sync: “cannot connect” | Firewall or Wi-Fi client isolation | Allow MiotDesk in the firewall (UDP 54329 and TCP 54330 in the local network) and turn off client isolation on the router |
 | Sync: “too few common devices” | Copies signed in to different accounts | Sign in to all copies with the same account |
 | Computer: “Shared settings are read-only” | The Android copy is not reachable | Open MiotDesk on the phone or click **Allow changes without Android** |
-| Android: update does not install over the old version | The APK is not compatible with the installed version | Save a settings backup ([section 13.7](#set-backup)), uninstall the old version, install the new one and restore the settings |
+| Android: update does not install over the old version | The APK is not compatible with the installed version | Save a settings backup ([section 13.8](#set-backup)), uninstall the old version, install the new one and restore the settings |
 | No energy statistics | Xiaomi provides no statistics for the period | Check the statistics in Mi Home; for devices without a meter enter the power ([section 11.3](#est)) |
 | No tray icon (Linux) | The indicator library is not installed | Install the `libayatana-appindicator3-1` package |
 
@@ -938,6 +1171,8 @@ Most of these problems are recorded in the error log ([section 13.5](#set-errlog
 
 <a id="glossary"></a>
 ## 17. Glossary
+
+<sub><a href="README.lt.md#glossary">Lietuviškai</a></sub>
 
 | Term | Definition |
 |---|---|
@@ -964,10 +1199,11 @@ Most of these problems are recorded in the error log ([section 13.5](#set-errlog
 
 **A**  
 [Account protection](#account-safety) · 2.2  
+[Android widget](#set-gadget) · 13.6  
 [Automations](#scenes) · 12.3  
 
 **B**  
-[Backup](#set-backup) · 13.7  
+[Backup](#set-backup) · 13.8  
 
 **C**  
 [Card](#card) · 7.2  
@@ -980,6 +1216,7 @@ Most of these problems are recorded in the error log ([section 13.5](#set-errlog
 
 **D**  
 [Data storage](#data) · 15  
+[Desktop widgets](#set-gadget) · 13.6  
 [Device icon](#dev-head) · 8.1  
 
 **E**  
@@ -1002,8 +1239,13 @@ Most of these problems are recorded in the error log ([section 13.5](#set-errlog
 **I**  
 [Installation](#install) · 5  
 
+**K**  
+[Kiosk mode](#inst-linux) · 5.2  
+
 **M**  
 [Main copy](#sync-how) · 14.1  
+[Menu bar (macOS)](#set-gadget) · 13.6  
+[Multi-key switch — key names](#card) · 7.2  
 
 **N**  
 [Notification limits](#dev-sensor) · 8.4  
@@ -1014,9 +1256,12 @@ Most of these problems are recorded in the error log ([section 13.5](#set-errlog
 [Privacy](#privacy) · 2.3  
 
 **R**  
+[Raspberry Pi](#inst-rpi) · 5.3  
+[Raspberry Pi — wall panel](#inst-rpi) · 5.3  
 [Refresh interval](#set-conn) · 13.4  
-[Removal](#uninstall) · 5.6  
+[Removal](#uninstall) · 5.7  
 [Robot vacuum](#dev-vacuum) · 8.6  
+[Robot vacuum — debug](#dev-vacdebug) · 8.7  
 
 **S**  
 [Scenes](#scenes) · 12.3  
@@ -1038,12 +1283,23 @@ Most of these problems are recorded in the error log ([section 13.5](#set-errlog
 [Two-step verification](#login-2fa) · 6.2  
 
 **U**  
-[Update](#update) · 5.5  
+[Update](#update) · 5.6  
 
 **V**  
 [Verification code](#login-2fa) · 6.2  
 
+**W**  
+[Widget appearance, order and names](#set-gadget) · 13.6  
+[Windows gadget](#set-gadget) · 13.6  
+
+**Ü**  
+[Übersicht](#set-gadget) · 13.6  
+[Übersicht — installing](#set-gadget) · 13.6  
+[Übersicht — widget position and size](#set-gadget) · 13.6  
+
 ---
 
-<sub>MiotDesk 0.12.0 · User Manual, edition 1.2 · © 2026 Aleksandr Igumenov · MIT License.
+<p align="center"><b>English</b> · <a href="README.lt.md">Lietuvių</a></p>
+
+<sub>MiotDesk 0.16.0 · User Manual, edition 2.2 · © 2026 Aleksandr Igumenov · MIT License.
 “Xiaomi”, “Mi Home” and “Xiaomi Home” are trademarks of Xiaomi Inc. Screenshots were taken in the program's demo mode; device names and readings are fictitious.</sub>
